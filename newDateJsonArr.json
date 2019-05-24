@@ -1,0 +1,38 @@
+{
+    "_meta": {
+        "success": true,
+        "code": 200,
+        "message": "OK. Everything worked as expected.",
+        "totalCount": 1,
+        "pageCount": 1,
+        "currentPage": 1,
+        "perPage": 20,
+        "rateLimit": {
+            "limit": 60,
+            "remaining": 59,
+            "reset": 1
+        }
+    },
+    "result": [
+        {
+            "id": "1987",
+            "first_name": "newFName",
+            "last_name": "newLName",
+            "gender": "male",
+            "dob": null,
+            "email": "new@email.com",
+            "phone": null,
+            "website": null,
+            "address": null,
+            "status": null,
+            "_links": {
+                "self": {
+                    "href": "https://gorest.co.in/public-api/users/1987"
+                },
+                "avatar": {
+                    "href": null
+                }
+            }
+        }
+    ]
+}
