@@ -98,4 +98,12 @@ public class GetPostSteps {
         file.write(Metods.newDataString);
         file.flush();
     }
+
+    @And("Delete all objects")
+    public void deleteAllObjects() {
+        Metods.deleteAllObjects();
+
+
+
+    }
 }

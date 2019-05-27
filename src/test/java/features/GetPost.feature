@@ -23,6 +23,12 @@ Feature:
   #And I perform id "2180" and checking if first name "qwerty" exist
 
 
+
+
+  Scenario: Delete all objects
+    And Delete all objects
+
+
   Scenario: Verify Put
     And I perform id "2051"
       | email      | qweee@sdd.com |

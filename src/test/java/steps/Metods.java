@@ -178,4 +178,36 @@ public class Metods {
         System.out.println("/-----------------------------------------------/");
 
     }
+
+    public static void deleteAllObjects() {
+        newDataString = given().contentType(ContentType.JSON).with().
+                when().
+                get(String.format("https://gorest.co.in/public-api/users?_format=json&access-token=13OUOf641bALRDrwbIxZg8veGMi9LfgsZDCR")).getBody().prettyPrint();
+        System.out.println("/-----------------------------------------------/");
+
+        JSONObject obj = new JSONObject(newDataString);
+        JSONArray data = obj.getJSONArray("result");
+
+        int n = data.length();
+
+        for (int i = 0; i < n; ++i) {
+
+
+
+                JSONObject person = data.getJSONObject(i);
+                System.out.print("Delete Status: id: " + person.get("id"));
+
+            deleteStatuseCode = given().contentType(ContentType.JSON).with().
+                    param("Accept", "application/json").
+                    param("Content-Type", "application/json").
+                    param("access-token", "13OUOf641bALRDrwbIxZg8veGMi9LfgsZDCR").
+                      when().
+                    delete(String.format("https://gorest.co.in/public-api/users/%s", person.get("id"))).then().extract().path("_meta.code");
+
+            System.out.print(" "+ deleteStatuseCode );
+
+            if (deleteStatuseCode == 204) System.out.println(" OK");
+            else System.out.println(" Error");
+            }
+    }
 }
