@@ -66,7 +66,7 @@ public class GetPostSteps {
 
         Metods.gettingdat();
 
-        FileWriter file = new FileWriter("DateJsonArr.json");
+        FileWriter file = new FileWriter("Data.json");
 
 
         file.write(Metods.DataString);
@@ -92,7 +92,7 @@ public class GetPostSteps {
     @And("Getting new data")
     public void gettingNewData() throws IOException {
         Metods.getingNewData();
-        FileWriter file = new FileWriter("newDateJsonArr.json");
+        FileWriter file = new FileWriter("newData.json");
 
 
         file.write(Metods.newDataString);

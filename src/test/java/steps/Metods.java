@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.jayway.restassured.RestAssured.given;
@@ -12,7 +13,10 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 
 public class Metods {
-    public static String url = "https://gorest.co.in/public-api/users?_format=json&access-token=13OUOf641bALRDrwbIxZg8veGMi9LfgsZDCR";
+    public static String accessToken="13OUOf641bALRDrwbIxZg8veGMi9LfgsZDCR";
+   public static String link="https://gorest.co.in/public-api/users";
+    public static String url = link+"?_format=json&access-token="+accessToken;
+
     public static String newID;
     public static int getStatuseCode;
     public static int postStatuseCode;
@@ -75,9 +79,9 @@ public class Metods {
     public static void Delete(String id, String name) {
 
         given().contentType(ContentType.JSON).with().
-                param("access-token", "mT8JNMyWCG0D7waCHkyxo0Hm80YBqelv5SBL").
+                param("access-token", accessToken).
                 when().
-                delete(String.format("https://gorest.co.in/public-api/users/%s", id)).getBody().print();
+                delete(String.format(link+"/"+ id)).getBody().print();
 
     }
 
@@ -100,30 +104,28 @@ public class Metods {
 
     public static void deleteWithNewId() {
         deleteStatuseCode = given().contentType(ContentType.JSON).with().
-                param("Accept", "application/json").
-                param("Content-Type", "application/json").
-                param("access-token", "13OUOf641bALRDrwbIxZg8veGMi9LfgsZDCR").
+                param("access-token", accessToken).
                 when().
-                delete(String.format("https://gorest.co.in/public-api/users/%s", newID)).then().extract().path("_meta.code");
+                delete(String.format(link+"/"+ newID)).then().extract().path("_meta.code");
 
 
     }
 
     public static void verifyStatus() {
         System.out.println();
-        System.out.print("Get Status: " + getStatuseCode);
+        System.out.print("Get Status: \t" + getStatuseCode);
         if (getStatuseCode == 200) System.out.println(" OK");
         else System.out.println(" Error");
 
-        System.out.print("Put Status: " + putStatuseCode);
+        System.out.print("Put Status: \t" + putStatuseCode);
         if (putStatuseCode == 200) System.out.println(" OK");
         else System.out.println(" Error");
 
-        System.out.print("Post Status: " + postStatuseCode);
+        System.out.print("Post Status: \t" + postStatuseCode);
         if (postStatuseCode == 201) System.out.println(" OK");
         else System.out.println(" Error");
 
-        System.out.print("Delete Status: " + deleteStatuseCode);
+        System.out.print("Delete Status: \t" + deleteStatuseCode);
         if (deleteStatuseCode == 204) System.out.println(" OK");
         else System.out.println(" Error");
 
@@ -133,15 +135,15 @@ public class Metods {
     public static void gettingdat() {
 
 
-        DataString = given().contentType(ContentType.JSON).with().
+        DataString = given().contentType(ContentType.JSON).
                 when().
-                get(String.format("https://gorest.co.in/public-api/users?_format=json&access-token=13OUOf641bALRDrwbIxZg8veGMi9LfgsZDCR&id=%s", newID)).getBody().prettyPrint();
+                get(String.format(url+"&id=%s", newID)).getBody().prettyPrint();
         System.out.println("/-----------------------------------------------/");
 
         JSONObject obj = new JSONObject(DataString);
         JSONArray data = obj.getJSONArray("result");
         int n = data.length();
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < n; i++) {
             for (int j = 0; j < keys.length; j++) {
 
 
@@ -158,15 +160,16 @@ public class Metods {
 
     public static void getingNewData() {
 
-        newDataString = given().contentType(ContentType.JSON).with().
+        newDataString = given().contentType(ContentType.JSON).
                 when().
-                get(String.format("https://gorest.co.in/public-api/users?_format=json&access-token=13OUOf641bALRDrwbIxZg8veGMi9LfgsZDCR&id=%s", newID)).getBody().prettyPrint();
+                get(String.format(url+"&id=%s", newID)).getBody().prettyPrint();
         System.out.println("/-----------------------------------------------/");
 
         JSONObject obj = new JSONObject(newDataString);
         JSONArray data = obj.getJSONArray("result");
         int n = data.length();
-        for (int i = 0; i < n; ++i) {
+
+        for (int i = 0; i < n; i++) {
             for (int j = 0; j < keys.length; j++) {
 
 
@@ -180,34 +183,31 @@ public class Metods {
     }
 
     public static void deleteAllObjects() {
-        newDataString = given().contentType(ContentType.JSON).with().
+        newDataString = given().contentType(ContentType.JSON).
                 when().
-                get(String.format("https://gorest.co.in/public-api/users?_format=json&access-token=13OUOf641bALRDrwbIxZg8veGMi9LfgsZDCR")).getBody().prettyPrint();
+                get(String.format(url)).getBody().prettyPrint();
         System.out.println("/-----------------------------------------------/");
 
         JSONObject obj = new JSONObject(newDataString);
         JSONArray data = obj.getJSONArray("result");
 
-        int n = data.length();
 
-        for (int i = 0; i < n; ++i) {
-
+        for (int i = 0; i < data.length(); i++) {
 
 
-                JSONObject person = data.getJSONObject(i);
-                System.out.print("Delete Status: id: " + person.get("id"));
+            JSONObject person = data.getJSONObject(i);
+
+            System.out.print("Delete id: " + person.get("id"));
 
             deleteStatuseCode = given().contentType(ContentType.JSON).with().
-                    param("Accept", "application/json").
-                    param("Content-Type", "application/json").
-                    param("access-token", "13OUOf641bALRDrwbIxZg8veGMi9LfgsZDCR").
-                      when().
-                    delete(String.format("https://gorest.co.in/public-api/users/%s", person.get("id"))).then().extract().path("_meta.code");
+                    param("access-token", accessToken).
+                    when().
+                    delete(String.format(link+"/"+ person.get("id"))).then().extract().path("_meta.code");
 
-            System.out.print(" "+ deleteStatuseCode );
+            System.out.print(". Code: " + deleteStatuseCode+" Status:");
 
             if (deleteStatuseCode == 204) System.out.println(" OK");
             else System.out.println(" Error");
-            }
+        }
     }
 }

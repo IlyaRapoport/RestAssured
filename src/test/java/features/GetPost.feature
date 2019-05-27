@@ -22,19 +22,15 @@ Feature:
     And I perform id "1672" and checking if first name "qwerty" delete
   #And I perform id "2180" and checking if first name "qwerty" exist
 
-
-
-
-  Scenario: Delete all objects
-    And Delete all objects
-
-
   Scenario: Verify Put
     And I perform id "2051"
       | email      | qweee@sdd.com |
       | first_name | 123           |
       | last_name  | 123           |
       | gender     | male          |
+
+  Scenario: Delete all objects
+    And Delete all objects
 
   Scenario: Verify all data
     And I'm Posting: email , first_name , last_name ,gender
