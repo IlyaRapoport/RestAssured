@@ -198,9 +198,8 @@ public class Metods {
 
             System.out.print("Delete id: " + person.get("id"));
 
-            deleteStatuseCode = given().contentType(ContentType.JSON).with().
+            deleteStatuseCode = given().
                     param("access-token", accessToken).
-                    when().
                     delete(String.format(link+"/"+ person.get("id"))).then().extract().path("_meta.code");
 
             System.out.print(". Code: " + deleteStatuseCode+" Status:");
