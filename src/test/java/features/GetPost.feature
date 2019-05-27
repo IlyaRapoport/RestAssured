@@ -38,7 +38,7 @@ Feature:
       | first_name | oldFName      |
       | last_name  | oldLName      |
       | gender     | male          |
-    And Verify data 
+    And Verify data
       | email      | old@email.com |
       | first_name | oldFName      |
       | last_name  | oldLName      |
