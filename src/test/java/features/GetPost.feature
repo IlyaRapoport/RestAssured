@@ -30,6 +30,7 @@ Feature:
       | gender     | male          |
 
   Scenario: Delete all objects
+    And Get all data in file
     And Delete all objects
 
   Scenario: Verify all data

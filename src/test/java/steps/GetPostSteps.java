@@ -1,13 +1,18 @@
 package steps;
 
+import com.jayway.restassured.http.ContentType;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
+
+import static com.jayway.restassured.RestAssured.given;
 
 public class GetPostSteps {
     @Given("I perform GET {string}")
@@ -103,6 +108,32 @@ public class GetPostSteps {
     public void deleteAllObjects() {
         Metods.deleteAllObjects();
 
+
+    }
+
+    @And("Get all data in file")
+    public void getAllDataInFile() throws IOException {
+        String newDataString = given().
+                get(String.format(Metods.url)).getBody().prettyPrint();
+        System.out.println("/-----------------------------------------------/");
+
+        JSONObject obj = new JSONObject(newDataString);
+        JSONArray data = obj.getJSONArray("result");
+        FileWriter file = new FileWriter("allData.txt");
+
+
+        for (int i = 0; i < data.length(); i++) {
+            for (int j = 0; j < Metods.keys.length; j++) {
+                JSONObject person = data.getJSONObject(i);
+
+                file.write(person.get(String.format(Metods.keys[j])).toString());
+                file.write("\t");
+                file.flush();
+
+            }
+
+            file.write("\n");
+        }
 
 
     }
