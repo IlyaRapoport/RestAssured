@@ -121,13 +121,14 @@ public class GetPostSteps {
         JSONArray data = obj.getJSONArray("result");
         FileWriter file = new FileWriter("allData.txt");
 
-
+        file.write("Quantity of employee is: " + data.length());
+        file.write("\n\n");
         for (int i = 0; i < data.length(); i++) {
             for (int j = 0; j < Metods.keys.length; j++) {
                 JSONObject person = data.getJSONObject(i);
 
-                file.write(person.get(String.format(Metods.keys[j])).toString());
-                file.write("\t");
+                file.write(Metods.keys[j] + ": " + person.get(String.format(Metods.keys[j])).toString());
+                file.write("\n");
                 file.flush();
 
             }

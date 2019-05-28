@@ -12,9 +12,9 @@ import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.core.Is.is;
 
 public class Metods {
-    public static String accessToken="13OUOf641bALRDrwbIxZg8veGMi9LfgsZDCR";
-   public static String link="https://gorest.co.in/public-api/users";
-    public static String url = link+"?_format=json&access-token="+accessToken;
+    public static String accessToken = "13OUOf641bALRDrwbIxZg8veGMi9LfgsZDCR";
+    public static String link = "https://gorest.co.in/public-api/users";
+    public static String url = link + "?_format=json&access-token=" + accessToken;
 
     public static String newID;
     public static int getStatuseCode;
@@ -80,7 +80,7 @@ public class Metods {
         given().contentType(ContentType.JSON).with().
                 param("access-token", accessToken).
                 when().
-                delete(String.format(link+"/"+ id)).getBody().print();
+                delete(String.format(link + "/" + id)).getBody().print();
 
     }
 
@@ -105,7 +105,7 @@ public class Metods {
         deleteStatuseCode = given().contentType(ContentType.JSON).with().
                 param("access-token", accessToken).
                 when().
-                delete(String.format(link+"/"+ newID)).then().extract().path("_meta.code");
+                delete(String.format(link + "/" + newID)).then().extract().path("_meta.code");
 
 
     }
@@ -136,7 +136,7 @@ public class Metods {
 
         DataString = given().contentType(ContentType.JSON).
                 when().
-                get(String.format(url+"&id=%s", newID)).getBody().prettyPrint();
+                get(String.format(url + "&id=%s", newID)).getBody().prettyPrint();
         System.out.println("/-----------------------------------------------/");
 
         JSONObject obj = new JSONObject(DataString);
@@ -161,7 +161,7 @@ public class Metods {
 
         newDataString = given().contentType(ContentType.JSON).
                 when().
-                get(String.format(url+"&id=%s", newID)).getBody().prettyPrint();
+                get(String.format(url + "&id=%s", newID)).getBody().prettyPrint();
         System.out.println("/-----------------------------------------------/");
 
         JSONObject obj = new JSONObject(newDataString);
@@ -200,9 +200,9 @@ public class Metods {
 
             deleteStatuseCode = given().
                     param("access-token", accessToken).
-                    delete(String.format(link+"/"+ person.get("id"))).then().extract().path("_meta.code");
+                    delete(String.format(link + "/" + person.get("id"))).then().extract().path("_meta.code");
 
-            System.out.print(". Code: " + deleteStatuseCode+" Status:");
+            System.out.print(". Code: " + deleteStatuseCode + " Status:");
 
             if (deleteStatuseCode == 204) System.out.println(" OK");
             else System.out.println(" Error");
